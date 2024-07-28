@@ -17,32 +17,25 @@ class BreedsServiceImp(
 
     private val allBreedsCache = ConcurrentHashMap<Int, BreedDetail>()
 
-    /**
-     * Fetch all breeds with pagination from cache or Dog API.
-     *
-     * @param page The page number to retrieve.
-     * @param size The number of breeds per page.
-     * @return A list of breeds for the given page and limit.
-     */
     @Cacheable(cacheNames = ["all_breed_summaries"], key = "#page + '_' + #size")
     override fun getAllBreedSummaries(page: Int, size: Int): List<BreedSummary> {
-        val allBreedDetails = dogApiClient.fetchBreeds(page, size)
-        allBreedDetails.forEach { allBreedsCache[it.id] = it }
-        return allBreedDetails.map { BreedSummary(it.id, it.name) }
+        val breedDetails = dogApiClient.fetchBreeds(page, size)
+        updateCache(breedDetails)
+        return breedDetails.map { it.toBreedSummary() }
     }
 
-    /**
-     * Fetch breed detail by ID from cache.
-     *
-     * @param id The breed ID to fetch details for.
-     * @return The breed detail for the given ID.
-     */
+    private fun updateCache(breedDetails: List<BreedDetail>) {
+        breedDetails.forEach { allBreedsCache[it.id] = it }
+    }
+
+    private fun BreedDetail.toBreedSummary(): BreedSummary {
+        return BreedSummary(id, name)
+    }
+
     override fun getBreedDetail(id: Int): BreedDetail {
-        val breedDetail = allBreedsCache[id]
-        if (breedDetail != null){
+        return allBreedsCache[id]?.let { breedDetail ->
             AnalyticsTracker.trackBreedRequest(id, breedDetail.name)
-            return breedDetail
-        }
-        else throw ResponseStatusException(HttpStatus.NOT_FOUND, "Breed not found")
+            breedDetail
+        } ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Breed not found")
     }
 }
