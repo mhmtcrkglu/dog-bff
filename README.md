@@ -34,10 +34,6 @@ Start the application with:
 ./gradlew bootRun
 ```
 
-## Dog Breeds Data Source
-
-The data for dog breeds is pulled from the [Dog API](https://api.thedogapi.com/v1). This API provides comprehensive information about various dog breeds, including details such as breed names, characteristics, and more.
-
 ## API Endpoints
 
 ### 1. List Dog Breeds
