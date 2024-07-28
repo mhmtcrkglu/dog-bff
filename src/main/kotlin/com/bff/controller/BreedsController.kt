@@ -2,12 +2,12 @@ package com.bff.controller
 
 import com.bff.model.BreedDetail
 import com.bff.model.BreedSummary
-import com.bff.service.BreedsService
+import com.bff.service.BreedsServiceImp
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/breeds")
-class BreedsController(private val breedsService: BreedsService) {
+class BreedsController(private val breedsService: BreedsServiceImp) {
 
     @GetMapping("/list/all")
     fun listAllBreeds(
