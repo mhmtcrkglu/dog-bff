@@ -2,8 +2,7 @@ package com.bff.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-
-data class DogBreed(
+data class BreedDetail(
     val weight: Weight,
     val height: Height,
     val id: Int,

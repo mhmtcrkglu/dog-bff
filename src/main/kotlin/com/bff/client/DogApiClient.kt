@@ -1,6 +1,6 @@
 package com.bff.client
 
-import com.bff.model.DogBreed
+import com.bff.model.BreedDetail
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.client.getForObject
@@ -19,12 +19,12 @@ class DogApiClient {
      * @param limit The number of breeds per page.
      * @return List of BreedDetail objects for the given page and limit.
      */
-    fun fetchBreeds(page: Int, limit: Int): List<DogBreed> {
+    fun fetchBreeds(page: Int, limit: Int): List<BreedDetail> {
         val url = UriComponentsBuilder.fromHttpUrl("$apiUrl/breeds")
             .queryParam("page", page)
             .queryParam("limit", limit)
             .toUriString()
 
-        return restTemplate.getForObject<Array<DogBreed>>(url).toList()
+        return restTemplate.getForObject<Array<BreedDetail>>(url).toList()
     }
 }
