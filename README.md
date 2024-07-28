@@ -86,7 +86,7 @@ Start the application with:
 Project folder structure:
 
 ```
-backend/
+dog-bff/
 └── src/
     └── main/
         └── kotlin/
