@@ -111,7 +111,6 @@ backend/
                 │   ├── AnalyticsServiceImp.kt
                 │   ├── BreedsService.kt
                 │   └── BreedsServiceImp.kt
-                └── util/
-                    ├── AnalyticsTracker.kt
-                    └── Application.kt
+                └── Application.kt
+
 ```
