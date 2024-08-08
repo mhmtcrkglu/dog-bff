@@ -15,7 +15,7 @@ class BreedsServiceImp(
     private val dogApiClient: DogApiClient
 ) : BreedsService {
 
-    private val allBreedsCache = ConcurrentHashMap<Int, BreedDetail>()
+    private val allBreedsCache = HashMap<Int, BreedDetail>()
 
     @Cacheable(cacheNames = ["all_breed_summaries"], key = "#page + '_' + #size")
     override fun getAllBreedSummaries(page: Int, size: Int): List<BreedSummary> {
